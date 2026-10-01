@@ -15,8 +15,7 @@ export interface PublicCloud {
   display_markdown: string;
 }
 
-
-const EDITION_REGISTRY_NAME = "first-edition";
+const EDITION_REGISTRY_NAME = "first-edition-production";
 const JSON_HEADERS = {
   "cache-control": "private, no-store",
   "content-type": "application/json; charset=utf-8",
