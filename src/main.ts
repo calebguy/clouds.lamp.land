@@ -69,9 +69,11 @@ function enableAgentPurchaseButton(ledger: CloudLedger): void {
 }
 
 function createAgentPurchasePrompt(purchaseEndpoint: string): string {
-	return `Buy me one cloud from ${purchaseEndpoint}.
-Check that I have enough USDC on Base; if not, ask me to fund it. Call the endpoint, handle its HTTP 402 challenge, and retry with the correct x402 payment header.
-After purchase, fetch the returned image_url using an image-capable read/fetch tool so the actual image binary is rendered inline in the terminal. Do not only output a Markdown image link. Also report the cloud ID and amount paid.`;
+	return `buy me one cloud from the cloud website at ${purchaseEndpoint}.
+check that I have enough USDC on base; if not, ask me to fund it. call the endpoint, handle its HTTP 402 challenge, and retry with the correct x402 payment header.
+after purchase, render the cloud image inline and report the cloud ID and amount paid.
+
+to render the image inline, use whatever works best in your environment — good options include downloading it to a local temp file via a JS eval cell (fetch + Bun.write) then reading the local path, a markdown image link, or display() with a base64 data URL.`;
 }
 
 async function copyAgentPurchasePrompt(
