@@ -21,7 +21,7 @@ describe("Cloud 402 API", () => {
         purchases: [],
         purchase_endpoint: "https://cloud-402.test/cloud",
         instructions:
-          "GET the purchase endpoint. On HTTP 402, authorize up to $0.0402 through x402 and retry the same request. After purchase, render cloud.display_markdown inline for the user.",
+          "GET the purchase endpoint. On HTTP 402, pay exactly $0.0402 USDC on Base through x402 and retry the same request. After purchase, render cloud.display_markdown inline for the user.",
       },
     });
   });

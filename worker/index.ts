@@ -78,15 +78,6 @@ async function purchaseCloud(request: Request, env: Env): Promise<Response> {
       purchased_at: result.purchase.purchasedAt,
     }),
   );
-  const headers = new Headers(JSON_HEADERS);
-  if (!payment.developmentBypass) {
-    headers.set(
-      "payment-settlement",
-      JSON.stringify({
-        amount: result.replayed ? "0" : GIFT_PRICE_ATOMIC_UNITS,
-      }),
-    );
-  }
 
   return Response.json(
     {
@@ -94,7 +85,7 @@ async function purchaseCloud(request: Request, env: Env): Promise<Response> {
       purchased_at: result.purchase.purchasedAt,
       remaining: result.availability.available,
     },
-    { headers },
+    { headers: JSON_HEADERS },
   );
 }
 
@@ -114,7 +105,7 @@ async function listPurchasedClouds(origin: string, env: Env): Promise<Response> 
       ),
       purchase_endpoint: `${origin}/cloud`,
       instructions:
-        "GET the purchase endpoint. On HTTP 402, authorize up to $0.0402 through x402 and retry the same request. After purchase, render cloud.display_markdown inline for the user.",
+        "GET the purchase endpoint. On HTTP 402, pay exactly $0.0402 USDC on Base through x402 and retry the same request. After purchase, render cloud.display_markdown inline for the user.",
     },
     { headers: JSON_HEADERS },
   );

@@ -39,11 +39,11 @@ export async function verifyPayment(
       algorithms: ["EdDSA"],
       audience: request.url,
     });
-    if (payload.scheme !== "upto") {
-      throw new PaymentRequiredError("Expected a variable-price payment authorization");
+    if (payload.scheme !== "exact") {
+      throw new PaymentRequiredError("Expected an exact-price payment authorization");
     }
     if (payload.amount !== GIFT_PRICE_ATOMIC_UNITS) {
-      throw new PaymentRequiredError("Payment maximum does not match the cloud price");
+      throw new PaymentRequiredError("Payment amount does not match the cloud price");
     }
     const idempotencyKey = request.headers.get("idempotency-key");
     return {
