@@ -1,0 +1,43 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "cloud-402",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-09-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "DEVELOPMENT_PAYMENT_BYPASS": "false"
+  },
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/cloud", "/clouds"]
+  },
+  "routes": [
+    {
+      "pattern": "clouds.lamp.land",
+      "custom_domain": true
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "GIFT_REGISTRY",
+        "class_name": "GiftRegistry"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["GiftRegistry"]
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 1
+    }
+  },
+  "upload_source_maps": true
+}
